@@ -11,32 +11,32 @@ int main(void)
   SystemClock_Config();
   MX_GPIO_Init();
 	
-	Task_5();
+  Task_5();
 }
 
 void Task_5()
 {
-	int leds[8] = {1, 2, 4, 8, 16, 32, 64, 128};  
+  int leds[8] = {1, 2, 4, 8, 16, 32, 64, 128};  
   int k = 0;
 	
   while (1)
   {
-		if (GPIOA->IDR & GPIO_IDR_IDR1)
-	  {
-		  for (int i = k; i < 7; i++)
-		  {
-			  GPIOB->ODR = leds[i] + leds[i + 1];
-			  HAL_Delay(delay);
-		  }
+	 if (GPIOA->IDR & GPIO_IDR_IDR1)
+	 {
+	    for (int i = k; i < 7; i++)
+	    {
+	       GPIOB->ODR = leds[i] + leds[i + 1];
+		   HAL_Delay(delay);
+	    }
 		
-		  for (int i = 6; i > 0; i--)
-		  {
-			  GPIOB->ODR = leds[i] + leds[i - 1];
-			  HAL_Delay(delay);
-		  }
+	    for (int i = 6; i > 0; i--)
+	    {
+			GPIOB->ODR = leds[i] + leds[i - 1];
+			HAL_Delay(delay);
+		}
 		
-		  k = 1;
-	  }
+		k = 1;
+	 }
   }
 }
 
@@ -87,13 +87,6 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-
-  /*Configure GPIO pin : PB0 */
-  GPIO_InitStruct.Pin = GPIO_PIN_10|GPIO_PIN_9|GPIO_PIN_8|GPIO_PIN_7|GPIO_PIN_6;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
 }
 
 void Error_Handler(void)
